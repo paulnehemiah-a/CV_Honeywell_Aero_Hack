@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+/* ───────────────────────────── Design Tokens ───────────────────────────── */
+@theme {
+  --color-bg-primary:   #0a0e14;
+  --color-bg-surface:   #111720;
+  --color-bg-elevated:  #1a2130;
+  --color-bg-hover:     #212d40;
+  --color-bg-active:    #283548;
+  --color-border-base:  #1e2a3a;
+  --color-border-light: #2a3a4e;
+  --color-border-focus: #3b82f6;
+
+  --color-text-primary:   #e2e8f0;
+  --color-text-secondary: #8b95a5;
+  --color-text-muted:     #5a6577;
+
+  --color-pass:     #22c55e;
+  --color-pass-dim: #16a34a33;
+  --color-fail:     #ef4444;
+  --color-fail-dim: #ef444433;
+  --color-warn:     #f59e0b;
+  --color-warn-dim: #f59e0b33;
+  --color-info:     #3b82f6;
+  --color-info-dim: #3b82f633;
+  --color-ai:       #a78bfa;
+  --color-ai-dim:   #a78bfa22;
+
+  --font-sans:  'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:  'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+}
+
+/* ─────────────────────────── Global Resets ──────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+}
+
+/* ─────────────────────── Scrollbar (Engineering) ────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-light);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+
+/* ────────────────────────── Selection ────────────────────────────────── */
+::selection {
+  background: var(--color-info);
+  color: white;
+}
+
+/* ─────────────────────── Monospace Numbers ───────────────────────────── */
+.font-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ────────────────────────── Waveform ────────────────────────────────── */
+.waveform-bar {
+  transition: opacity 0.15s ease;
+}
+.waveform-bar:hover {
+  opacity: 0.8;
+}
+
+/* ──────────────────── Segment Tooltip ───────────────────────────────── */
+.segment-tooltip {
+  position: absolute;
+  z-index: 50;
+  pointer-events: none;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-light);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 12px;
+  white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+/* ─────────────────── Pulse for Processing ───────────────────────────── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.animate-pulse-dot {
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+/* ─────────────────── Slide In ───────────────────────────────────────── */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+/* ─────────────────── Fade In ───────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out;
+}
+
+/* ────────────────── Toast ───────────────────────────────────────────── */
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(100%); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes toast-out {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(100%); }
+}
+.toast-enter { animation: toast-in 0.3s ease-out; }
+.toast-exit  { animation: toast-out 0.3s ease-in; }
+
+/* ────────────────── Canvas Overlays ─────────────────────────────────── */
+.radar-overlay {
+  image-rendering: pixelated;
+}
